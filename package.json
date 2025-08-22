@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-admin",
+  "version": "1.0.0",
+  "description": "Portfolio Frontend + Admin Backend",
+  "scripts": {
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "frontend": "cd portfolio && npm start",
+    "backend": "cd admin && npm run dev",
+    "build": "cd portfolio && npm run build",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\""  
+    }
+}

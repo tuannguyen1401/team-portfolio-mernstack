@@ -1,0 +1,45 @@
+<aside class="fixed left-0 top-0 h-screen w-64 bg-gray-900 text-gray-100 flex flex-col shadow-lg">
+    <!-- Header -->
+    <div class="p-6 border-b border-gray-700">
+      <h1 class="text-2xl font-bold tracking-wide text-white">Admin</h1>
+    </div>
+  
+    <!-- Nav -->
+    <nav class="flex-1 overflow-y-auto">
+      <ul class="space-y-2 p-4">
+        <li>
+          <a href="/admin/settings" 
+             class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            <span class="text-lg">⚙️</span>
+            <span class="font-medium">Cài đặt</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/projects" 
+             class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            <span class="text-lg">📁</span>
+            <span class="font-medium">Dự án</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/analytics" 
+             class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            <span class="text-lg">📈</span>
+            <span class="font-medium">Thống kê</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  
+    <!-- Footer -->
+    <div class="p-4 border-t border-gray-700">
+      <form action="/logout" method="get">
+        <button type="submit" 
+                class="w-full flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-red-600 bg-red-500 text-white font-medium transition">
+          <span class="text-lg">🚪</span>
+          <span>Đăng xuất</span>
+        </button>
+      </form>
+    </div>
+  </aside>
+  

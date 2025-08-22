@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title || 'Admin' %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/public/style.css" />
+</head>
+<body class="bg-gray-100">
+  <%- include('navbar') %>
+  
+  <main class="ml-64 p-8">
+    <div class="max-w-7xl mx-auto">
+      <%- body %>
+    </div>
+  </main>
+</body>
+</html>
+
+
