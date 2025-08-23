@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { Container, Row, Col } from "react-bootstrap";
 import homeLogo from "../../Assets/home-main.svg";
 import Particle from "../Particle";
@@ -9,7 +10,38 @@ import chatify from "../../Assets/Projects/chatify.png";
 import bitsOfCode from "../../Assets/Projects/blog.png";
 import editor from "../../Assets/Projects/codeEditor.png";
 
+import axios from "axios";
+
+function useOptions() {
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/options")
+      .then((res) => {
+        if (res.data && res.data.success) {
+          setOptions(res.data.data);
+        } else {
+          console.log("Không lấy được dữ liệu options");
+        }
+      })
+      .catch((err) => {
+        console.log("Lỗi khi gọi API options");
+      })
+  }, []);
+
+  return { options };
+}
+
 function Home() {
+  const { options } = useOptions();
+  let webTitle = "";
+
+  if (options) {
+    const webTitle = options.find(option => option.name == "web_title");
+    if (webTitle) document.title = webTitle.value;
+  }
+
   return (
     <section>
       <Container fluid className="home-section" id="home">
@@ -26,11 +58,11 @@ function Home() {
 
               <h1 className="heading-name">
                 I'M
-                <strong className="main-name"> Tuan Dev </strong>
+                <strong className="main-name"> {webTitle?.value || "Fiver Team"} </strong>
               </h1>
 
               <div style={{ padding: 50, textAlign: "left" }}>
-                <Type />
+                <Type stackName={options.find(option => option.name == "name_stack")} />
               </div>
             </Col>
 
@@ -51,7 +83,7 @@ function Home() {
         <h1 className="project-heading">My Recent <strong className="purple">Works </strong></h1>
         <p style={{ color: "white" }}>Here are a few projects I've worked on recently.</p>
         <Container className="d-flex justify-content-center">
-        <Col md={4} className="project-card">
+        {/* <Col md={4} className="project-card">
             <ProjectCard
               imgPath={chatify}
               isBlog={false}
@@ -82,7 +114,7 @@ function Home() {
               ghLink="https://github.com/soumyajit4419/Editor.io"
               demoLink="https://editor.soumya-jit.tech/"              
             />
-          </Col>
+          </Col> */}
         </Container>
       </Container>
     </section>

@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+function checkLoginSql() {
+    return `SELECT * FROM users WHERE username = ? AND password = ? LIMIT 1`;
+}
+
 router.get('/login', (req, res) => {
     res.render('login', { title: 'Admin Login', layout: false });
   });
@@ -12,7 +16,7 @@ router.get('/login', (req, res) => {
     if (username && password) {
       try {
         const rows = await req.db.query(
-          'SELECT * FROM users WHERE username = ? AND password = ? LIMIT 1',
+          checkLoginSql(),
           [username, password]
         );
   

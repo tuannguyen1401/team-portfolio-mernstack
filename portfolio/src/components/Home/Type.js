@@ -1,15 +1,15 @@
 import React from "react";
 import Typewriter from "typewriter-effect";
 
-function Type() {
+function Type({ stackName }) {
+  let arrayStackName = [];
+
+  if (stackName) arrayStackName = stackName.value.split(',');
+
   return (
     <Typewriter
       options={{
-        strings: [
-          "Flutter Developer",
-          "Freelancer",
-          "MERN Stack Developer",
-        ],
+        strings: arrayStackName,
         autoStart: true,
         loop: true,
         deleteSpeed: 50,

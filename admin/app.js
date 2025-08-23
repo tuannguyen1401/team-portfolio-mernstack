@@ -3,20 +3,16 @@ const path = require('path');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
+const cors = require('cors');
 const db = require('./config/db');
 const authRoutes = require('./routes/auth');
-
+const initializeDatabase = require('./config/db_migration');
+const optionsRoutes = require('./routes/options');
+const projectRoutes = require('./routes/project');
+const api = require('./routes/frontend/api');
 const app = express();
 
-// Kiểm tra kết nối DB trước khi vào web
-db.ping()
-  .then(() => {
-    console.log('Kết nối database thành công.');
-  })
-  .catch((err) => {
-    console.error('Không thể kết nối database:', err);
-    process.exit(1);
-  });
+initializeDatabase();
 
 // Settings
 const PORT = process.env.PORT || 4000;
@@ -24,6 +20,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', false);
+
+// CORS
+app.use(cors());
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -55,6 +54,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', authRoutes);
+app.use('/admin/options', optionsRoutes);
+app.use('/admin/projects', projectRoutes);
+
+app.use('/api', api); 
 
 // 404
 app.use((req, res) => {
