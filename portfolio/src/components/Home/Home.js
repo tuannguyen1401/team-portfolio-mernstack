@@ -14,10 +14,12 @@ import axios from "axios";
 
 function useOptions() {
   const [options, setOptions] = useState([]);
+  console.log("ENV DEMO:", process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/options")
+      // chỗ này để api hiện tại
+      .get(`${process.env.REACT_APP_API_URL}api/options`)
       .then((res) => {
         if (res.data && res.data.success) {
           setOptions(res.data.data);
