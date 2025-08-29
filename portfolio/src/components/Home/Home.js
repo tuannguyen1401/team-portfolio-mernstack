@@ -59,7 +59,7 @@ function Home() {
               </h1>
 
               <h1 className="heading-name">
-                I'M
+                We are
                 <strong className="main-name"> {webTitle?.value || "Fiver Team"} </strong>
               </h1>
 
@@ -79,7 +79,7 @@ function Home() {
           </Row>
         </Container>
       </Container>
-      <Home2 />
+      <Home2 stackName={options.find(option => option.name == "name_stack")}/>
 
       <Container className="">
         <h1 className="project-heading">My Recent <strong className="purple">Works </strong></h1>

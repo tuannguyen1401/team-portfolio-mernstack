@@ -9,7 +9,7 @@ import {
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 
-function Home2() {
+function Home2({ stackName }) {
   return (
     <Container fluid className="home-about-section" id="about">
       <Container>
@@ -23,7 +23,7 @@ function Home2() {
               <br />
               <br />I am fluent in classics like
               <i>
-                <b className="purple"> Flutter, React,  Node.js, PHP </b>
+                <b className="purple"> {stackName?.value || "Flutter, React,  Node.js, PHP"} </b>
               </i>
               <br />
               <br />

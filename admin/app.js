@@ -4,12 +4,14 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const db = require('./config/db');
 const authRoutes = require('./routes/auth');
 const initializeDatabase = require('./config/db_migration');
 const optionsRoutes = require('./routes/options');
 const projectRoutes = require('./routes/project');
 const api = require('./routes/frontend/api');
+const { isAuthenticated } = require('./middleware/auth');
 const app = express();
 
 initializeDatabase();
@@ -27,6 +29,7 @@ app.use(cors());
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(fileUpload());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Session middleware
@@ -46,16 +49,15 @@ app.use((req, _res, next) => {
   next();
 });
 
-// Routes
-app.get('/', (req, res) => {
-  if (!req.session.user) return res.redirect('/login');
-
-  res.render('dashboard', { title: 'Admin Dashboard', layout: 'layout' });
-});
-
 app.use('/', authRoutes);
-app.use('/admin/options', optionsRoutes);
-app.use('/admin/projects', projectRoutes);
+
+app.get('dashboard', (req, res) => {
+  res.render('dashboard', { title: 'Dashboard', layout: 'layout' });
+})
+// Routes
+
+app.use('/admin/options', isAuthenticated, optionsRoutes);
+app.use('/admin/projects', isAuthenticated, projectRoutes);
 
 app.use('/api', api); 
 
@@ -68,4 +70,3 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Admin server listening on http://localhost:${PORT}`);
 });
-

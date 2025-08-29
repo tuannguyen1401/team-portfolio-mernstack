@@ -7,8 +7,9 @@ CREATE TABLE IF NOT EXISTS projects (
   description TEXT,
   stack_name VARCHAR(255),
   github_url VARCHAR(255),
-  demo_url VARCHAR(255),
   image_url VARCHAR(255),
+  chplay_link VARCHAR(255),
+  appstore_link VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

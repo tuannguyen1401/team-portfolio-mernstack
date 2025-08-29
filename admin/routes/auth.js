@@ -22,7 +22,7 @@ router.get('/login', (req, res) => {
   
         if (rows.length > 0) {
           req.session.user = rows[0].id;
-          return res.redirect('/');
+          return res.redirect('dashboard');
         } else {
           return res.render('login', { title: 'Admin Login', error: 'Tên đăng nhập hoặc mật khẩu không đúng', layout: false });
         }
@@ -35,7 +35,7 @@ router.get('/login', (req, res) => {
     }
   });
   
-  // POST /logout
+  // GET /logout
   router.get('/logout', (req, res) => {
     if (req.session.user) {
       req.session.destroy(() => {
